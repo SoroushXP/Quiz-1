@@ -20,6 +20,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (accuracy_score, f1_score,
                              precision_score, recall_score)
 from sklearn.datasets import load_breast_cancer
+from sklearn.preprocessing import StandardScaler
 from imblearn.under_sampling import RandomUnderSampler
 
 
@@ -60,9 +61,14 @@ print(pd.Series(y_res).value_counts(normalize=True))
 X_tr, X_te, y_tr, y_te = train_test_split(X_res, y_res, test_size=0.2,
                                           random_state=42, stratify=y_res)
 
+# استانداردسازی برای همگرایی بهتر
+scaler = StandardScaler()
+X_tr_scaled = scaler.fit_transform(X_tr)
+X_te_scaled = scaler.transform(X_te)
+
 lr_imbalanced = LogisticRegression(max_iter=1000)
-lr_imbalanced.fit(X_tr, y_tr)
-y_pred = lr_imbalanced.predict(X_te)
+lr_imbalanced.fit(X_tr_scaled, y_tr)
+y_pred = lr_imbalanced.predict(X_te_scaled)
 
 print("\nنتایج مدل Logistic Regression روی داده نامتوازن:")
 print(f"Accuracy:  {accuracy_score(y_te, y_pred):.4f}")

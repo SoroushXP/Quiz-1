@@ -40,10 +40,10 @@ print(df_titanic['age_eq_freq'].value_counts().sort_index())
 df_titanic['age_bin'] = pd.cut(df_titanic['age'], bins=5)
 
 # Smoothing by bin mean
-df_titanic['age_smooth_mean'] = df_titanic.groupby('age_bin')['age'].transform('mean')
+df_titanic['age_smooth_mean'] = df_titanic.groupby('age_bin', observed=False)['age'].transform('mean')
 
 # Smoothing by bin median
-df_titanic['age_smooth_median'] = df_titanic.groupby('age_bin')['age'].transform('median')
+df_titanic['age_smooth_median'] = df_titanic.groupby('age_bin', observed=False)['age'].transform('median')
 
 # Smoothing by bin boundaries
 def smooth_by_boundaries(row):
