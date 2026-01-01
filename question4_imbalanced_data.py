@@ -21,7 +21,6 @@ from sklearn.metrics import (accuracy_score, f1_score,
                              precision_score, recall_score)
 from sklearn.datasets import load_breast_cancer
 from sklearn.preprocessing import StandardScaler
-from imblearn.under_sampling import RandomUnderSampler
 
 
 print("=== سؤال 4: داده‌های نامتوازن ===")
